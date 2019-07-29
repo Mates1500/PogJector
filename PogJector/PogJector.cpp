@@ -46,17 +46,3 @@ int main()
         getchar(); getchar();
     }
 }
-
-
-void SetDebugPrivileges()
-{
-    HANDLE tokenHandle;
-    OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &tokenHandle);
-    TOKEN_PRIVILEGES privilegeToken;
-    LookupPrivilegeValue(0, SE_DEBUG_NAME, &privilegeToken.Privileges[0].Luid);
-    privilegeToken.PrivilegeCount = 1;
-    privilegeToken.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
-    bool result = AdjustTokenPrivileges(tokenHandle, 0, &privilegeToken, sizeof(TOKEN_PRIVILEGES), 0, 0);
-    CloseHandle(tokenHandle);
-}
-
