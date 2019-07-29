@@ -1,12 +1,9 @@
 #include <iostream>
 #include <string>
-#include <Windows.h>
 #include <stdexcept>
 #include "Process.h"
 #include "Injector.h"
 #include "DebugPrivilegeGranter.h"
-
-void SetDebugPrivileges();
 
 int main()
 {
