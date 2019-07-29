@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <Windows.h>
+#include <stdexcept>
 #include "Process.h"
 #include "Injector.h"
 #include "DebugPrivilegeGranter.h"
@@ -27,14 +28,23 @@ int main()
     std::cout << "Enter dll path:" << std::endl;
     std::cin >> dllPath;
     
-    Injector injector(processName, dllPath);
-    injector.Inject();
-    
-    std::cout << "Library injected. Press any key to eject..." << std::endl;
-    getchar(); getchar();
-    injector.Eject();
-    std::cout << "Injected library ejected. Press any key to exit..." << std::endl;
-    getchar();
+    try
+    {
+        Injector injector(processName, dllPath);
+        injector.Inject();
+
+        std::cout << "Library injected. Press any key to eject..." << std::endl;
+        getchar(); getchar();
+        injector.Eject();
+        std::cout << "Injected library ejected. Press any key to exit..." << std::endl;
+        getchar();
+    }
+    catch (std::runtime_error e)
+    {
+        std::cout << "An exception has been raised: " << e.what() << std::endl;
+        std::cout << "Press any key to exit...";
+        getchar(); getchar();
+    }
 }
 
 
